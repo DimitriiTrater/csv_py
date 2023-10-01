@@ -1,6 +1,7 @@
 import enum
 import csv
 import random as rndm
+from copy import deepcopy
 
 
 @enum.unique
@@ -77,3 +78,30 @@ class CsvManager:
             for _ in range(1, dict_of_params["rows"]):
                 print(*rows[rndm.randint(1, len(rows)-1)],
                       sep=dict_of_params["sep"])
+
+    def Info(self) -> None:
+        with open(self.__file_path, "r") as file:
+            rows = deepcopy(list(csv.reader(file)))
+            header = rows.pop(0)
+            rows_with_data = list(x for x in rows if x != [])
+            count_of_rows_with_data = len(rows_with_data)
+            print("Количество строк с данными на количество столбцов:")
+            print(f"{count_of_rows_with_data}x{len(header)}")
+            for i in range(len(header)):
+                count_of_columns_with_data = sum(
+                    1 for x in rows_with_data if x[i].replace(
+                        " ", ""
+                    ) != ""
+                )
+                h = header[i].replace(" ", "")
+                t = self.__get_type_of_var(rows_with_data[0][i])
+                print(f"{h} {count_of_columns_with_data} {t}")
+
+    def __get_type_of_var(self, var) -> str:
+        try:
+            new_var = float(var)
+        except ValueError:
+            return "string"
+        if (new_var - int(new_var) == 0):
+            return "int"
+        return "float"
