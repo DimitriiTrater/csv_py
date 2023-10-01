@@ -25,14 +25,14 @@ class CsvManager:
         dict_of_params = {"mode": mode,
                           "rows": rows,
                           "sep": sep}
-        if (self.__check_count_of_rows()):
+        if (self.__check_count_of_rows(rows)):
             self.__top(dict_of_params)
             return
         self.__check_mode(dict_of_params)
 
-    def __check_count_of_rows(self) -> bool:
+    def __check_count_of_rows(self, rows: int) -> bool:
         with open(self.__file_path, "r") as file:
-            if (len(list(csv.reader(file))) < 6):
+            if (len(list(csv.reader(file))) < rows):
                 return True
             return False
 
@@ -61,11 +61,12 @@ class CsvManager:
 
     def __bottom(self, dict_of_params: dict) -> None:
         with open(self.__file_path, "r") as file:
-            rows = list(csv.reader(file))
+            rows = deepcopy(list(csv.reader(file)))
+            header = rows.pop(0)
             print("- " * 20)
-            print(*rows[0])
+            print(*header)
             print("- " * 20)
-            for index in range(len(rows) - dict_of_params["rows"]-1,
+            for index in range(len(rows) - dict_of_params["rows"],
                                len(rows)):
                 print(*rows[index], sep=dict_of_params["sep"])
 
@@ -75,7 +76,7 @@ class CsvManager:
             print("- " * 20)
             print(*rows[0])
             print("- " * 20)
-            for _ in range(1, dict_of_params["rows"]):
+            for _ in range(1, dict_of_params["rows"]+1):
                 print(*rows[rndm.randint(1, len(rows)-1)],
                       sep=dict_of_params["sep"])
 
