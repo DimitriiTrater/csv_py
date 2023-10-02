@@ -108,6 +108,26 @@ class CsvManager:
             return "int"
         return "float"
 
+    def DelNaN(self):
+        with open(self.__file_path, "r") as file:
+            rows = deepcopy(list(csv.reader(file)))
+            del_rows = []
+            for row in rows:
+                for column in row:
+                    if column.replace(" ", "") == "":
+                        print("NaN")
+                        print(row)
+                        del_rows.append(row)
+                        break
+
+            for del_row in del_rows:
+                rows.remove(del_row)
+
+            res = open("result.csv", "w")
+            res_writer = csv.writer(res)
+            for row in rows:
+                res_writer.writerow(row)
+
     def MakeDS(self) -> None:
         with open(self.__file_path, "r") as file:
             rows = deepcopy(list(csv.reader(file)))

@@ -3,6 +3,7 @@ import tests
 
 files = [
     "test/airtravel.csv",
+    "test/fordelnan.csv",
     "test/void.csv",
     "test/cities.csv",
     "test/less_5.csv",
@@ -10,5 +11,5 @@ files = [
 ]
 
 if __name__ == "__main__":
-    t = tests.TestCsvManagerMakeDS(files)
-    t.test_makeds()
+    t = tests.TestCsvManagerDelNaN(files)
+    t.test_delnan()

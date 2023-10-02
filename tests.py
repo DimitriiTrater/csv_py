@@ -54,3 +54,13 @@ class TestCsvManagerMakeDS:
             temp = CsvManager(i)
             temp.MakeDS()
         print()
+
+
+class TestCsvManagerDelNaN:
+    def __init__(self, files: List):
+        self.files = files
+
+    def test_delnan(self):
+        for i in self.files:
+            temp = CsvManager(i)
+            temp.DelNaN()
