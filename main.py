@@ -10,5 +10,5 @@ files = [
 ]
 
 if __name__ == "__main__":
-    tInfo = tests.TestCsvManagerInfo(files)
-    tInfo.test_info()
+    t = tests.TestCsvManagerMakeDS(files)
+    t.test_makeds()

@@ -41,3 +41,16 @@ class TestCsvManagerInfo:
             temp = CsvManager(i)
             temp.Info()
         print()
+
+
+class TestCsvManagerMakeDS:
+    def __init__(self, files: List):
+        self.files = files
+
+    def test_makeds(self):
+        for i in self.files:
+            print()
+            print(i)
+            temp = CsvManager(i)
+            temp.MakeDS()
+        print()

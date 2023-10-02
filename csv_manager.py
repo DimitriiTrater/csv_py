@@ -2,6 +2,7 @@ import enum
 import csv
 import random as rndm
 from copy import deepcopy
+import os
 
 
 @enum.unique
@@ -106,3 +107,38 @@ class CsvManager:
         if (new_var - int(new_var) == 0):
             return "int"
         return "float"
+
+    def MakeDS(self) -> None:
+        with open(self.__file_path, "r") as file:
+            rows = deepcopy(list(csv.reader(file)))
+            header = rows.pop(0)
+            len_rows = len(rows)
+            rndm.shuffle(rows)
+            seventy_percent = round(len_rows / 100 * 70)
+            thirty_percent = len_rows - seventy_percent
+
+            try:
+                train = open("learning/train.csv", "w")
+            except FileNotFoundError:
+                os.mkdir("learning/")
+                train = open("learning/train.csv", "w")
+            train_writer = csv.writer(train)
+            train_writer.writerow(header)
+            print(header)
+            for i in range(seventy_percent):
+                print(rows[i])
+                train_writer.writerow(rows[i])
+            train.close()
+
+            try:
+                test = open("testing/test.csv", "w")
+            except FileNotFoundError:
+                os.mkdir("testing/")
+                test = open("testing/test.csv", "w")
+            test_writer = csv.writer(test)
+            test_writer.writerow(header)
+            print(header)
+            for i in range(thirty_percent):
+                print(rows[seventy_percent + i])
+                test_writer.writerow(rows[seventy_percent + i])
+            test.close()
