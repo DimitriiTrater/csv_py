@@ -127,6 +127,7 @@ class CsvManager:
             res_writer = csv.writer(res)
             for row in rows:
                 res_writer.writerow(row)
+            res.close()
 
     def MakeDS(self) -> None:
         with open(self.__file_path, "r") as file:
