@@ -100,13 +100,18 @@ class CsvManager:
                 print(f"{h} {count_of_columns_with_data} {t}")
 
     def __get_type_of_var(self, var) -> str:
+        res = ""
         try:
-            new_var = float(var)
+            int(var)
+            res = "int"
         except ValueError:
-            return "string"
-        if (new_var - int(new_var) == 0):
-            return "int"
-        return "float"
+            try:
+                float(var)
+                res = "float"
+            except ValueError:
+                str(var)
+                res = "string"
+        return res
 
     def DelNaN(self):
         with open(self.__file_path, "r") as file:
