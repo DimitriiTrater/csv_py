@@ -139,10 +139,11 @@ class CsvManager:
             thirty_percent = len_rows - seventy_percent
 
             try:
-                train = open("learning/train.csv", "w")
+                train = open("workdata/learning/train.csv", "w")
             except FileNotFoundError:
-                os.mkdir("learning/")
-                train = open("learning/train.csv", "w")
+                os.mkdir("workdata/")
+                os.mkdir("workdata/learning/")
+                train = open("workdata/learning/train.csv", "w")
             train_writer = csv.writer(train)
             train_writer.writerow(header)
             print(header)
@@ -152,10 +153,10 @@ class CsvManager:
             train.close()
 
             try:
-                test = open("testing/test.csv", "w")
+                test = open("workdata/testing/test.csv", "w")
             except FileNotFoundError:
-                os.mkdir("testing/")
-                test = open("testing/test.csv", "w")
+                os.mkdir("workdata/testing/")
+                test = open("workdata/testing/test.csv", "w")
             test_writer = csv.writer(test)
             test_writer.writerow(header)
             print(header)
